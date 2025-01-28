@@ -1,0 +1,32 @@
+[Unit]
+Description=Nameserver information manager
+Documentation=man:resolvconf(8)
+DefaultDependencies=no
+After=systemd-tmpfiles-setup.service
+Before=network-pre.target
+Wants=network-pre.target
+
+[Service]
+RemainAfterExit=yes
+ExecStart=/sbin/resolvconf --enable-updates
+ExecStop=/sbin/resolvconf --disable-updates
+
+LockPersonality=true
+MemoryDenyWriteExecute=true
+NoNewPrivileges=true
+PrivateDevices=true
+PrivateTmp=true
+ProtectClock=true
+ProtectControlGroups=true
+ProtectHostname=true
+ProtectKernelLogs=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+ProtectHome=true
+ProtectSystem=full
+ProtectProc=invisible
+
+[Install]
+WantedBy=sysinit.target
